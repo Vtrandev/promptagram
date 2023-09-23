@@ -9,6 +9,8 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 const Nav = () => {
   const { data: session } = useSession();
 
+  console.log(session)
+
   const [providers, setProviders] = useState(null);
   const [toggleDropDown, setToggleDropDown] = useState(false);
 
@@ -57,28 +59,19 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers && (
-                Object.values(providers).map((provider) => (
-                  <>
-                <button
-                  type="button"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                  className="black_btn mr-3"
-                >
-                  Sign In
-                </button>
-
-                <button
-                  type="button"
-                  key={"Guest"}
-                  onClick={() => signIn("12345")}
-                  className="black_btn"
-                >
-                  Sign In As Guest
-                </button>
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <>
+                  <button
+                    type="button"
+                    key={providers.name}
+                    onClick={() => signIn(provider.id)}
+                    className="black_btn mr-3"
+                  >
+                    Sign In with {provider.name}
+                  </button>
                 </>
-                )))}
+              ))}
           </>
         )}
       </div>

@@ -22,11 +22,11 @@ const Feed = () => {
 
   const handleSearchChange = (e) => {
     e.preventDefault();
-    setSearchText(e.target.value)
+    setSearchText(e.target.value);
   };
 
   const handleTagClick = () => {
-    console.log('Handletag clicked')
+    console.log("Handletag clicked");
   };
 
   useEffect(() => {
@@ -35,8 +35,6 @@ const Feed = () => {
       const data = await response.json();
       setPosts(data);
     };
-
-    console.log(posts);
     fetchPosts();
   }, []);
 
