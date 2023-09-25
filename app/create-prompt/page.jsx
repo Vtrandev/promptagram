@@ -28,6 +28,7 @@ const CreatePrompt = () => {
                     prompt: post.prompt,
                     userId: session?.user.id,
                     tag: post.tag,
+                    image: session.user.image
                 })
             })
 

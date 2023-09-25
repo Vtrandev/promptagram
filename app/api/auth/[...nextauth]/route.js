@@ -20,10 +20,9 @@ const handler = NextAuth({
         email: { label: "Email", type: "email", placeholder: "guest@gmail.com" }
       },
       async authorize(credentials, req) {
-        console.log(credentials)
         const user = { 
           id: '12345', name: "Guest", email: "guest@gmail.com",
-          image: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+          image: "/assets/images/profileme.png"
           }
 
         if (user) {
@@ -42,34 +41,38 @@ const handler = NextAuth({
       });
 
       session.user.id = sessionUser._id.toString();
+      session.user.image = sessionUser.image
 
       return session;
     },
 
-  //   async signIn({ profile }) {
-  //     try {
-  //       await connectToDB();
+    async signIn({ user, profile }) {
+      try {
+        await connectToDB();
 
-  //       // check if a user already exists
-  //       const userExists = await User.findOne({
-  //         email: profile.email,
-  //       });
+        // console.log("profile", profile);
+        // console.log("user::", user);
+
+        // check if a user already exists
+        const userExists = await User.findOne({
+          email: user.email,
+        });
         
-  //       // if not, create a new user
-  //       if (!userExists) {
-  //         await User.create({
-  //           email: profile.email,
-  //           username: profile.name.replace(" ", "").toLowerCase(),
-  //           image: profile.picture,
-  //         });
-  //       }
+        // if not, create a new user
+        if (!userExists) {
+          await User.create({
+            email: user.email,
+            username: user.name.replace(" ", "").toLowerCase(),
+            image: user.image ? user.image : "/assets/images/profileme.png",
+          });
+        }
 
-  //       return true;
-  //     } catch (error) {
-  //       console.log(error);
-  //       return false;
-  //     }
-  //   },
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
   },
 });
 
