@@ -48,8 +48,11 @@ const Feed = () => {
     setSearchResults(results);
   };
 
-  const handleTagClick = () => {
-    console.log("Handletag clicked");
+  const handleTagClick = (tag) => {
+    console.log("Handletag clicked", tag);
+    setSearchText(tag);
+    const results = filterPrompts(tag);
+    setSearchResults(results);
   };
 
   useEffect(() => {
@@ -62,7 +65,7 @@ const Feed = () => {
         <input
           type="text"
           placeholder="Search for a tag or a username"
-          // value={searchText}
+          value={searchText}
           onChange={(event) => handleSearchChange(event)}
           required
           className="search_input peer"
