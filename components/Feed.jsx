@@ -42,14 +42,12 @@ const Feed = () => {
   };
 
   const handleSearchChange = (e) => {
-    console.log(e.target.value)
     setSearchText(e.target.value);
     const results = filterPrompts(e.target.value);
     setSearchResults(results);
   };
 
   const handleTagClick = (tag) => {
-    console.log("Handletag clicked", tag);
     setSearchText(tag);
     const results = filterPrompts(tag);
     setSearchResults(results);
