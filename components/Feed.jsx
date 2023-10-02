@@ -22,18 +22,16 @@ const Feed = () => {
   const [searchedResults, setSearchResults] = useState([]);
 
   const [posts, setPosts] = useState([]);
-  const [allPosts, setAllPosts] = useState([]);
 
   const fetchPosts = async () => {
     const response = await fetch("/api/prompt");
     const data = await response.json();
     setPosts(data);
-    setAllPosts(data);
   };
 
   const filterPrompts = (searchtext) => {
     const regex = new RegExp(searchtext, "i");
-    return allPosts.filter(
+    return posts.filter(
       (item) =>
         regex.test(item.creator.username) ||
         regex.test(item.tag) ||
